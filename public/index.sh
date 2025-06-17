@@ -102,39 +102,50 @@ centered_print_with_delay "${WHITE}${BOLD}[Y]${NC} ${GREEN}Yes, let's talk!${NC}
 printf '\n\e[?25h'
 printf '%*s%b' $(( (TERM_COLS - 8) / 2 )) '' "${CYAN}${BOLD}❯${NC} ${WHITE}Choice${NC} ${CYAN}${BOLD}❯${NC} "
 read -r -n 1 choice 
+while true; do
+  printf '\n\e[?25h'
+  printf '%*s%b' $(( (TERM_COLS - 8) / 2 )) '' "${CYAN}${BOLD}❯${NC} ${WHITE}Choice${NC} ${CYAN}${BOLD}❯${NC} "
+  read -r -n 1 choice
+  echo
 
-case "$choice" in
-  [Yy] | '' )
-    centered_print_with_delay "${GREEN}${BOLD}✓ Awesome! Connecting to SreeCharan${NC}"
-    printf '\n'
-    centered_print_with_delay "${CYAN}Opening WhatsApp${NC}"
-    for i in {1..3}; do
-        printf '%*s%b' $(( TERM_COLS / 2 - 1 )) '' "${DIM}."
-        sleep 0.3
-    done
-    printf '\n\n'
-    if command -v xdg-open &>/dev/null; then
-        xdg-open "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
-        centered_print_with_delay "${GREEN}${BOLD}✓ WhatsApp opened! Check your browser${NC}"
-    elif command -v open &>/dev/null; then
-        open "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
-        centered_print_with_delay "${GREEN}${BOLD}✓ WhatsApp opened! Check your browser${NC}"
-    elif command -v start &>/dev/null; then
-        start "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
-        centered_print_with_delay "${GREEN}${BOLD}✓ WhatsApp opened! Check your browser${NC}"
-    else
-        centered_print_with_delay "${YELLOW}${BOLD}📱 Click here: https://wa.me/+916300625861${NC}"
-    fi
-    ;;
-  [Nn] )
-    centered_print_with_delay "${BLUE}${BOLD}✓ No problem! Catch you on the flip side${NC}"
-    centered_print_with_delay "${DIM}${GRAY}Feel free to check out my portfolio anytime${NC}"
-    ;;
-  * )
-    centered_print_with_delay "${RED}${BOLD}⚠ Hmm, that's not Y or N. Try again!${NC}"
-    centered_print_with_delay "${DIM}${GRAY}(Press Y for Yes or N for No)${NC}"
-    ;;
-esac
+  case "$choice" in
+    [Yy] )
+      # Yes branch
+      centered_print_with_delay "${GREEN}${BOLD}✓ Awesome! Connecting to SreeCharan${NC}"
+      printf '\n'
+      centered_print_with_delay "${CYAN}Opening WhatsApp${NC}"
+      for i in {1..3}; do
+          printf '%*s%b' $(( TERM_COLS / 2 - 1 )) '' "${DIM}."
+          sleep 0.3
+      done
+      printf '\n\n'
+      if command -v xdg-open &>/dev/null; then
+          xdg-open "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
+          centered_print_with_delay "${GREEN}${BOLD}✓ WhatsApp opened! Check your browser${NC}"
+      elif command -v open &>/dev/null; then
+          open "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
+          centered_print_with_delay "${GREEN}${BOLD}✓ WhatsApp opened! Check your browser${NC}"
+      elif command -v start &>/dev/null; then
+          start "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
+          centered_print_with_delay "${GREEN}${BOLD}✓ WhatsApp opened! Check your browser${NC}"
+      else
+          centered_print_with_delay "${YELLOW}${BOLD}📱 Click here: https://wa.me/+916300625861${NC}"
+      fi
+      break
+      ;;
+    [Nn] )
+      # No branch
+      centered_print_with_delay "${BLUE}${BOLD}✓ No problem! Catch you on the flip side${NC}"
+      centered_print_with_delay "${DIM}${GRAY}Feel free to check out my portfolio anytime${NC}"
+      break
+      ;;
+    * )
+      # Invalid input
+      centered_print_with_delay "${RED}${BOLD}⚠ Hmm, that's not Y or N. Try again!${NC}"
+      centered_print_with_delay "${DIM}${GRAY}(Press Y for Yes or N for No)${NC}"
+      ;;
+  esac
+done
 
 # --- Stylized Closing Message ---
 printf '\n\n'
