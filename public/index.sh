@@ -2,7 +2,7 @@
 
 # ──────────────────────────────────────────────────────
 # Terminal Portfolio — Sreecharan Desu
-# Clean, minimal, hacker-friendly CLI inspired by Vite, Turborepo
+# Ruthlessly centered, minimal, hacker-inspired
 # ──────────────────────────────────────────────────────
 
 set -euo pipefail
@@ -24,11 +24,25 @@ else
 fi
 
 # --- Helpers ---
+strip_ansi() {
+  echo -e "$1" | sed 's/\x1b\[[0-9;]*m//g'
+}
+
+center_line() {
+  local line="$1"
+  local clean_line
+  clean_line=$(strip_ansi "$line")
+  local padding=$(( (TERM_COLS - ${#clean_line}) / 2 ))
+  [[ $padding -gt 0 ]] && printf '%*s' "$padding" ''
+  echo -e "$line"
+}
+
 centered_print_with_delay() {
-  local text="$1" delay="${2:-$TYPING_SPEED}"
-  local clean_text
-  clean_text=$(echo "$text" | sed 's/\x1b\[[0-9;]*m//g')
-  local padding=$(( (TERM_COLS - ${#clean_text}) / 2 ))
+  local text="$1"
+  local delay="${2:-$TYPING_SPEED}"
+  local clean_text padding
+  clean_text=$(strip_ansi "$text")
+  padding=$(( (TERM_COLS - ${#clean_text}) / 2 ))
   [[ $padding -gt 0 ]] && printf '%*s' "$padding" ''
   for ((i = 0; i < ${#text}; i++)); do
     printf '%b' "${text:$i:1}"
@@ -37,25 +51,28 @@ centered_print_with_delay() {
   printf '\n'
 }
 
+center_multiline_block() {
+  while IFS= read -r line; do
+    center_line "$line"
+    sleep 0.1
+  done <<< "$1"
+}
+
 # --- Start ---
 clear
 printf '\e[?25l'
-trap 'printf "\e[?25h"' EXIT
+trap 'printf "\e[?25h\n"; exit' EXIT
 
 # --- Banner ---
-printf '%b' "${WHITE}${BOLD}\n\n\n\n\n\n"
-echo "        ███████╗██████╗ ███████╗███████╗ ██████╗██╗  ██╗ █████╗ ██████╗  █████╗ ███╗   ██╗    ██████╗ ███████╗███████╗██╗   ██╗"
-sleep 0.2
-echo "        ██╔════╝██╔══██╗██╔════╝██╔════╝██╔════╝██║  ██║██╔══██╗██╔══██╗██╔══██╗████╗  ██║    ██╔══██╗██╔════╝██╔════╝██║   ██║"
-sleep 0.2
-echo "        ███████╗██████╔╝█████╗  █████╗  ██║     ███████║███████║██████╔╝███████║██╔██╗ ██║    ██║  ██║█████╗  ███████╗██║   ██║"
-sleep 0.2
-echo "        ╚════██║██╔══██╗██╔══╝  ██╔══╝  ██║     ██╔══██║██╔══██║██╔══██╗██╔══██║██║╚██╗██║    ██║  ██║██╔══╝  ╚════██║██║   ██║"
-sleep 0.2
-echo "        ███████║██║  ██║███████╗███████╗╚██████╗██║  ██║██║  ██║██║  ██║██║  ██║██║ ╚████║    ██████╔╝███████╗███████║╚██████╔╝"
-sleep 0.2
-echo "        ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝    ╚═════╝ ╚══════╝╚══════╝ ╚═════╝"
-printf '%b' "${NC}"
+banner_text="
+${WHITE}${BOLD}███████╗██████╗ ███████╗███████╗ ██████╗██╗  ██╗ █████╗ ██████╗  █████╗ ███╗   ██╗    ██████╗ ███████╗███████╗██╗   ██╗
+██╔════╝██╔══██╗██╔════╝██╔════╝██╔════╝██║  ██║██╔══██╗██╔══██╗██╔══██╗████╗  ██║    ██╔══██╗██╔════╝██╔════╝██║   ██║
+███████╗██████╔╝█████╗  █████╗  ██║     ███████║███████║██████╔╝███████║██╔██╗ ██║    ██║  ██║█████╗  ███████╗██║   ██║
+╚════██║██╔══██╗██╔══╝  ██╔══╝  ██║     ██╔══██║██╔══██║██╔══██╗██╔══██║██║╚██╗██║    ██║  ██║██╔══╝  ╚════██║██║   ██║
+███████║██║  ██║███████╗███████╗╚██████╗██║  ██║██║  ██║██║  ██║██║  ██║██║ ╚████║    ██████╔╝███████╗███████║╚██████╔╝
+╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝    ╚═════╝ ╚══════╝╚══════╝ ╚═════╝${NC}
+"
+center_multiline_block "$banner_text"
 
 # --- Intro ---
 printf '\n'
