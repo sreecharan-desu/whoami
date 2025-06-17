@@ -37,18 +37,12 @@ centered_print_with_delay() {
   printf '\n'
 }
 
-print_section_header() {
-  local title="$1" color="$2"
-  sleep "$SECTION_DELAY"
-  centered_print_with_delay "${color}▶ ${WHITE}${BOLD}${title^^}${color} ◀${NC}"
-}
-
-# --- Begin ---
+# --- Start ---
 clear
 printf '\e[?25l'
 trap 'printf "\e[?25h"' EXIT
 
-# --- Title Banner ---
+# --- Banner ---
 printf '%b' "${WHITE}${BOLD}\n\n\n\n\n\n"
 echo "        ███████╗██████╗ ███████╗███████╗ ██████╗██╗  ██╗ █████╗ ██████╗  █████╗ ███╗   ██╗    ██████╗ ███████╗███████╗██╗   ██╗"
 sleep 0.2
@@ -76,51 +70,14 @@ centered_print_with_delay "${CYAN}- DevOps & Cloud systems${NC}"
 # --- Portfolio Link ---
 printf '\n'
 centered_print_with_delay "${DIM}${GRAY}Take a look at my work:${NC}"
-centered_print_with_delay "${WHITE}https://sreecharandesu.in${NC}"
+centered_print_with_delay "${WHITE}sreecharandesu.in${NC}"
 
-# --- Call to Action ---
+# --- Let's Chat ---
 printf '\n'
-centered_print_with_delay "${CYAN}${BOLD}Ready to connect?${NC} ${DIM}Let's chat!${NC}"
-printf '\n'
-centered_print_with_delay "${WHITE}${BOLD}[Y]${NC} ${GREEN}Yes, let's talk!${NC}  ${WHITE}${BOLD}[N]${NC} ${GRAY}Maybe later${NC}"
+centered_print_with_delay "${CYAN}${BOLD}Wanna talk ?${NC}"
+centered_print_with_delay "${WHITE}Let's talk 👉 chat.sreecharandesu.in${NC}"
 
-# --- Input Handler ---
-printf '\n\e[?25h'
-printf '%*s%b' $(( (TERM_COLS - 8) / 2 )) '' "${CYAN}${BOLD}❯${NC} ${WHITE}Choice${NC} ${CYAN}${BOLD}❯${NC} "
-read -r -n 1 choice
-echo
-
-case "$choice" in
-  [Yy] )
-    centered_print_with_delay "${GREEN}${BOLD}✓ Awesome! Connecting to SreeCharan${NC}"
-    printf '\n'
-    centered_print_with_delay "${CYAN}Opening WhatsApp${NC}"
-    for i in {1..3}; do
-      printf '%*s%b' $(( TERM_COLS / 2 - 1 )) '' "${DIM}."
-      sleep 0.3
-    done
-    printf '\n\n'
-    if command -v xdg-open &>/dev/null; then
-      xdg-open "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
-    elif command -v open &>/dev/null; then
-      open "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
-    elif command -v start &>/dev/null; then
-      start "https://wa.me/+916300625861?text=Hi%20SreeCharan,%20I%27m%20interested%20in%20hiring%20you!" &>/dev/null
-    else
-      centered_print_with_delay "${YELLOW}${BOLD}📱 Click here manually: https://wa.me/+916300625861${NC}"
-    fi
-    centered_print_with_delay "${GREEN}${BOLD}✓ WhatsApp opened! Check your browser${NC}"
-    ;;
-  [Nn] )
-    centered_print_with_delay "${BLUE}${BOLD}✓ No problem! Catch you on the flip side${NC}"
-    centered_print_with_delay "${DIM}${GRAY}Feel free to check out my portfolio anytime.${NC}"
-    ;;
-  * )
-    centered_print_with_delay "${YELLOW}${BOLD}📱 Click here to connect: https://wa.me/+916300625861${NC}"
-    ;;
-esac
-
-# --- Closing Message ---
+# --- Closing ---
 printf '\n\n'
 centered_print_with_delay "${WHITE}${BOLD}╔══════════════════════════════════════╗${NC}"
 centered_print_with_delay "      ${CYAN}${BOLD}Thanks for visiting my CLI!${NC}"
