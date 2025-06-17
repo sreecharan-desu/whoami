@@ -101,7 +101,8 @@ centered_print_with_delay "${WHITE}${BOLD}[Y]${NC} ${GREEN}Yes, let's talk!${NC}
 # Stylized input prompt
 printf '\n\e[?25h'
 printf '%*s%b' $(( (TERM_COLS - 8) / 2 )) '' "${CYAN}${BOLD}❯${NC} ${WHITE}Choice${NC} ${CYAN}${BOLD}❯${NC} "
-read -r -n 1 choice
+read -r -n 1 
+choice 
 printf '\n\n'
 
 case "$choice" in
