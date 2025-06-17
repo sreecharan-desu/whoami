@@ -70,12 +70,12 @@ centered_print_with_delay "${CYAN}- DevOps & Cloud systems${NC}"
 # --- Portfolio Link ---
 printf '\n'
 centered_print_with_delay "${DIM}${GRAY}Take a look at my work:${NC}"
-centered_print_with_delay "${WHITE}sreecharandesu.in${NC}"
+centered_print_with_delay "${WHITE}https://sreecharandesu.in${NC}"
 
 # --- Let's Chat ---
 printf '\n'
 centered_print_with_delay "${CYAN}${BOLD}Wanna talk ?${NC}"
-centered_print_with_delay "${WHITE}Let's talk 👉 chat.sreecharandesu.in${NC}"
+centered_print_with_delay "${WHITE}Let's talk 👉 https://chat.sreecharandesu.in${NC}"
 
 # --- Closing ---
 printf '\n\n'
