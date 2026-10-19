@@ -92,7 +92,7 @@ centered_print_with_delay "${WHITE}https://sreecharandesu.in${NC}"
 # --- Let's Chat ---
 printf '\n'
 centered_print_with_delay "${CYAN}${BOLD}Wanna talk ?${NC}"
-centered_print_with_delay "${WHITE}Let's talk 👉 https://chat.sreecharandesu.in${NC}"
+centered_print_with_delay "${WHITE}Let's talk https://chat.sreecharandesu.in${NC}"
 
 # --- Closing ---
 printf '\n\n'
@@ -100,6 +100,6 @@ centered_print_with_delay "${WHITE}${BOLD}╔═══════════�
 centered_print_with_delay "      ${CYAN}${BOLD}Thanks for visiting my CLI!${NC}"
 centered_print_with_delay "${WHITE}${BOLD}╚══════════════════════════════════════╝${NC}"
 printf '\n'
-centered_print_with_delay "${DIM}${GRAY}💭 \"Building simple, useful things is my kind of fun.\"${NC}"
+centered_print_with_delay "${DIM}${GRAY}\"Building simple, useful things is my kind of fun.\"${NC}"
 printf '\n\n\n'
 printf '\e[?25h'
