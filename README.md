@@ -1,7 +1,13 @@
-# who-sreecharandesu
+# whoami
 
-Minimal Vercel deployment that serves a shell script at the site root (`public/index.sh`), routed via `vercel.json`.
+terminal intro: a bash script served at the site root by vercel.
 
-## Deploy
+## run
 
-Connect this repository to Vercel; the default route `/` maps to `/index.sh`.
+```bash
+curl -sL https://who-sreecharandesu.vercel.app | bash
+```
+
+## deploy
+
+`vercel.json` routes `/` to `public/index.sh`. connect the repo to vercel.
